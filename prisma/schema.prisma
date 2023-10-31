@@ -4,7 +4,7 @@ generator client {
 
 datasource db {
   provider = "mysql"
-  url      = env("DATABASE_NODE36")
+  url      = env("DATABASE_NODE362")
 }
 
 model food {
@@ -37,41 +37,31 @@ model like_res {
   @@id([user_id, res_id, date_like])
   @@index([res_id], map: "res_id")
   @@index([user_id], map: "user_id")
-  @@ignore
 }
 
-model nguoi_dung {
-  fullname  String?   @db.VarChar(20)
-  ngay_sinh DateTime? @db.Date
-  id        Int       @id
-}
-
-/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
 model orders {
   food_id Int?
-  code    String? @db.VarChar(30)
+  code    String @id @db.VarChar(30)
   amount  Int?
   user_id Int?
-  user    user?   @relation(fields: [user_id], references: [user_id], onDelete: NoAction, onUpdate: NoAction, map: "fk_user")
-  food    food?   @relation(fields: [food_id], references: [food_id], onDelete: NoAction, onUpdate: NoAction, map: "orders_ibfk_1")
+  user    user?  @relation(fields: [user_id], references: [user_id], onDelete: NoAction, onUpdate: NoAction, map: "fk_user")
+  food    food?  @relation(fields: [food_id], references: [food_id], onDelete: NoAction, onUpdate: NoAction, map: "orders_ibfk_1")
 
   @@index([user_id], map: "fk_user")
   @@index([food_id], map: "food_id")
-  @@ignore
 }
 
-/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
 model rate_res {
-  user_id    Int?
-  res_id     Int?
+  user_id    Int
+  res_id     Int
   amount     Int?
-  date_rate  DateTime?   @db.DateTime(0)
-  user       user?       @relation(fields: [user_id], references: [user_id], onDelete: NoAction, onUpdate: NoAction, map: "rate_res_ibfk_1")
-  restaurant restaurant? @relation(fields: [res_id], references: [res_id], onDelete: NoAction, onUpdate: NoAction, map: "rate_res_ibfk_2")
+  date_rate  DateTime   @db.DateTime(0)
+  user       user       @relation(fields: [user_id], references: [user_id], onDelete: NoAction, onUpdate: NoAction, map: "rate_res_ibfk_1")
+  restaurant restaurant @relation(fields: [res_id], references: [res_id], onDelete: NoAction, onUpdate: NoAction, map: "rate_res_ibfk_2")
 
+  @@id([user_id, res_id, date_rate])
   @@index([res_id], map: "res_id")
   @@index([user_id], map: "user_id")
-  @@ignore
 }
 
 model restaurant {
