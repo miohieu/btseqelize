@@ -18,7 +18,7 @@ const likeRes = async (req, res) => {
             data: data
         }
         )
-        res.status(201).send(result)
+        res.status(201).send("Like thanh cong")
 
     } catch (err) {
 
@@ -29,4 +29,46 @@ const likeRes = async (req, res) => {
 }
 
 
-export { likeRes }
+const likeByRes = async (req, res) => {
+
+    const resId = +req.params.resID
+
+    try {
+        const result = await prisma.like_res.findMany({
+            where: {
+                res_id: resId
+            }
+        })
+        if (result.length === 0) {
+            throw new Error("Nha hang chua duoc like")
+        }
+        res.status(200).send(result)
+    } catch (err) {
+        console.log(err)
+        res.status(500).send(err)
+
+    }
+}
+
+const likeByUser = async (req, res) => {
+
+    const uID = +req.params.userID
+
+    try {
+        const result = await prisma.like_res.findMany({
+            where: {
+                user_id: uID
+            }
+        })
+        if (result.length === 0) {
+            throw new Error("Khong tim thay user")
+        }
+        res.status(200).send(result)
+    } catch (err) {
+        console.log(err)
+        res.status(500).send("Loi")
+
+    }
+}
+
+export { likeRes, likeByRes, likeByUser }
