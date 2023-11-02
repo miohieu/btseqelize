@@ -1,5 +1,5 @@
 import express from 'express';
-import { likeByRes, likeByUser, likeRes } from '../controller/controller.js';
+import { likeByRes, likeByUser, likeRes, rateByRes, rateByUser, rateRes } from '../controller/controller.js';
 
 const resRoute = express.Router();
 
@@ -7,8 +7,13 @@ const resRoute = express.Router();
 
 resRoute.post("/likeRes", likeRes);
 
-//lay danh sach like theo nha hang
-resRoute.get("/likes/:resID", likeByRes)
+resRoute.post("/rate/rateRes", rateRes)
+
+resRoute.get("/likes/restaurant/:resID", likeByRes)
 resRoute.get("/likes/user/:userID", likeByUser)
+
+
+resRoute.get("/rate/restaurant/:res_id", rateByRes)
+resRoute.get("/rate/user/:user_id", rateByUser)
 
 export default resRoute;
