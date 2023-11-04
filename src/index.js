@@ -7,7 +7,7 @@ const app = express()
 app.use(express.json())
 
 
-app.listen(8001, console.log("starting on port 8008, http://localhost:8001"))
+app.listen(8001, console.log("starting on port 8001, http://localhost:8001"))
 
 app.use("/api", routes)
 

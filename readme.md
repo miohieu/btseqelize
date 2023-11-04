@@ -18,3 +18,15 @@ api/restaurant/rate/user/:restaurant_id
 
 ## get danh sach rate theo user
 api/restaurant/rate/user/:user_id
+
+## unlike nha hang 
+/api/restaurant/unlikeRes?user_id&res_id
+
+## tao order
+/api/order/create-order
+body: {
+    "user_id":int ,
+    "amount": int,
+    "food_id":int 
+}
+

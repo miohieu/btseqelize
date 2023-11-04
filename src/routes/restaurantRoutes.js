@@ -1,11 +1,12 @@
 import express from 'express';
-import { likeByRes, likeByUser, likeRes, rateByRes, rateByUser, rateRes } from '../controller/controller.js';
+import { likeByRes, likeByUser, likeRes, rateByRes, rateByUser, rateRes, unlikeRes } from '../controller/controller.js';
 
 const resRoute = express.Router();
 
 
 
 resRoute.post("/likeRes", likeRes);
+resRoute.delete("/unlikeRes", unlikeRes)
 
 resRoute.post("/rate/rateRes", rateRes)
 
